@@ -19,27 +19,6 @@ def render_sidebar():
             """
         )
 
-
-        st.markdown(
-            """
-            Navigate through:
-
-            🏠 Dashboard
-
-            🩺 Prediction
-
-            📊 Performance
-
-            🧠 Explainability
-
-            ⚖ Fairness
-
-            📈 Calibration
-
-            """
-        )
-
-
         st.divider()
 
 
