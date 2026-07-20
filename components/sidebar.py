@@ -9,7 +9,6 @@ def render_sidebar():
 
     with st.sidebar:
 
-        st.divider()
 
 
         st.caption(
