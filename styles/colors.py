@@ -1,0 +1,22 @@
+"""
+Application Colors
+"""
+
+
+PRIMARY = "#2563EB"
+
+SECONDARY = "#0F172A"
+
+SUCCESS = "#22C55E"
+
+WARNING = "#F59E0B"
+
+DANGER = "#EF4444"
+
+BACKGROUND = "#F8FAFC"
+
+CARD = "#FFFFFF"
+
+TEXT = "#1E293B"
+
+MUTED = "#64748B"

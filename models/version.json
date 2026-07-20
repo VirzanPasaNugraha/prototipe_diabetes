@@ -1,0 +1,10 @@
+{
+    "application": "Diabetes Risk Prediction System",
+    "version": "1.0.0",
+    "model_version": "1.0.0",
+    "model_type": "CatBoostClassifier",
+    "dataset_version": "BRFSS2015",
+    "python": "3.12",
+    "status": "Production",
+    "release_date": "2026-07-20"
+}
