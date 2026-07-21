@@ -162,6 +162,10 @@ st.divider()
 
 st.subheader("Top Important Features")
 
+st.caption(
+    "Mean |SHAP value| — feature contribution to the final CatBoost model predictions."
+)
+
 importance = pd.DataFrame({
 
     "Feature":[
@@ -172,18 +176,22 @@ importance = pd.DataFrame({
         "HighBP"
     ],
 
-    "Importance":[
-        0.194,
-        0.163,
-        0.151,
-        0.112,
-        0.104
+    "Mean |SHAP Value|":[
+        0.5586,
+        0.4721,
+        0.4011,
+        0.3380,
+        0.3226
     ]
 
 })
 
 st.bar_chart(
     importance.set_index("Feature")
+)
+
+st.caption(
+    "See the SHAP Explainability page for the full summary and bar plots."
 )
 
 st.divider()

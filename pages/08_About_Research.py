@@ -5,6 +5,14 @@ About Research
 import streamlit as st
 import pandas as pd
 
+from utils.asset_loader import (
+    CORRELATION_HEATMAP,
+    BMI_DISTRIBUTION,
+    VIF_ANALYSIS,
+    ABLATION_STUDY,
+    MISCLASSIFICATION_SUMMARY,
+)
+
 st.set_page_config(
     page_title="About Research",
     page_icon="📖",
@@ -204,6 +212,167 @@ st.dataframe(
 st.divider()
 
 # ======================================================
+# DATASET & MODEL DIAGNOSTICS (previously missing)
+# ======================================================
+
+st.subheader("Dataset & Model Diagnostics")
+
+st.write(
+    """
+    Additional exploratory and diagnostic analyses conducted
+    during the research, complementing the performance,
+    SHAP, fairness, and calibration results shown on the
+    other pages.
+    """
+)
+
+diag_tab1, diag_tab2, diag_tab3, diag_tab4 = st.tabs(
+    [
+        "🔥 Correlation Heatmap",
+        "📏 BMI Distribution",
+        "🧮 VIF Analysis",
+        "✂️ Ablation & Misclassification",
+    ]
+)
+
+# ---------------------------------------------------
+# CORRELATION HEATMAP
+# ---------------------------------------------------
+
+with diag_tab1:
+
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        st.image(
+            CORRELATION_HEATMAP,
+            caption="Correlation Heatmap of All Variables",
+            use_column_width=True
+        )
+
+    with col2:
+        st.subheader("Interpretation")
+        st.write(
+            """
+            Diabetes status is positively correlated with
+            HighBP, HighChol, BMI, GenHlth, DiffWalk, and Age.
+
+            Education and Income show relatively weak
+            negative correlations with diabetes status.
+
+            All correlations are moderate, indicating no
+            severe multicollinearity among predictor
+            variables.
+            """
+        )
+
+# ---------------------------------------------------
+# BMI DISTRIBUTION
+# ---------------------------------------------------
+
+with diag_tab2:
+
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        st.image(
+            BMI_DISTRIBUTION,
+            caption="BMI Distribution by Diabetes Status",
+            use_column_width=True
+        )
+
+    with col2:
+        st.subheader("Interpretation")
+        st.write(
+            """
+            Individuals with diabetes tend to have higher
+            BMI values compared to those without diabetes.
+
+            The diabetes group is concentrated around BMI
+            values above 25, indicating that higher BMI is
+            associated with increased diabetes risk.
+            """
+        )
+
+# ---------------------------------------------------
+# VIF ANALYSIS
+# ---------------------------------------------------
+
+with diag_tab3:
+
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        st.image(
+            VIF_ANALYSIS,
+            caption="Variance Inflation Factor (VIF) Results",
+            use_column_width=True
+        )
+
+    with col2:
+        st.subheader("Interpretation")
+        st.write(
+            """
+            All numerical variables have VIF values below 2.0,
+            indicating no serious multicollinearity issues.
+
+            Highest VIF: GenHlth (1.6813), PhysHlth (1.5474)
+
+            Lowest VIF: BMI (1.0802), Age (1.0711)
+
+            Numerical features provide complementary
+            information without excessive overlap.
+            """
+        )
+
+# ---------------------------------------------------
+# ABLATION + MISCLASSIFICATION
+# ---------------------------------------------------
+
+with diag_tab4:
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image(
+            ABLATION_STUDY,
+            caption="Feature Impact Based on Ablation Study",
+            use_column_width=True
+        )
+
+        st.write(
+            """
+            Removing **BMI** causes the largest ROC-AUC
+            drop (0.0153), while removing **GenHlth** causes
+            the largest Recall drop (0.0159).
+
+            BMI drives overall discrimination; GenHlth drives
+            sensitivity to positive diabetes cases.
+            """
+        )
+
+    with col2:
+        st.image(
+            MISCLASSIFICATION_SUMMARY,
+            caption="Misclassification Distribution",
+            use_column_width=True
+        )
+
+        st.write(
+            """
+            False Positives (2,069) outnumber False Negatives
+            (1,405), showing the model tends to over-predict
+            diabetes risk.
+
+            580 high-confidence errors and 1,307 borderline
+            predictions highlight remaining room for
+            improvement.
+            """
+        )
+
+st.divider()
+
+# ======================================================
 # KEY FINDINGS
 # ======================================================
 
@@ -217,11 +386,15 @@ st.success(
 High Cholesterol, and High Blood Pressure as the
 most influential features.
 
-• Fairness evaluation showed relatively balanced
-performance across demographic groups.
+• Fairness evaluation showed disparities across age and
+education groups, with older individuals detected more
+reliably than younger ones.
 
 • Calibration analysis demonstrated reliable
-probability estimates.
+probability estimates (lowest Brier Score among all models).
+
+• Ablation study confirms BMI and GenHlth as the most
+critical features for discrimination and sensitivity.
 
 • Threshold optimization provides flexibility
 between balanced prediction and screening scenarios.

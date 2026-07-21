@@ -235,17 +235,17 @@ with tab1:
 
 
     col1, col2 = st.columns(
-        [2,1]
+        [2, 1]
     )
 
 
     with col1:
 
-       st.image(
-    ROC_CURVE,
-    caption="ROC Curve Comparison",
-    use_column_width=True
-)
+        st.image(
+            ROC_CURVE,
+            caption="ROC Curve Comparison",
+            use_column_width=True
+        )
 
 
     with col2:
@@ -279,7 +279,7 @@ with tab2:
 
 
     col1, col2 = st.columns(
-        [2,1]
+        [2, 1]
     )
 
 
@@ -319,7 +319,7 @@ with tab3:
 
 
     col1, col2 = st.columns(
-        [2,1]
+        [2, 1]
     )
 
 
@@ -365,7 +365,7 @@ with tab4:
 
 
     col1, col2 = st.columns(
-        [2,1]
+        [2, 1]
     )
 
 

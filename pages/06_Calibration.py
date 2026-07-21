@@ -60,35 +60,29 @@ with c3:
 st.divider()
 
 # =====================================================
-# CALIBRATION DATA
+# BRIER SCORE COMPARISON (real data from Table III)
 # =====================================================
 
-st.subheader("Calibration Data")
+st.subheader("Brier Score Comparison Across Models")
 
-calibration = pd.DataFrame({
+st.caption(
+    "Lower Brier Score indicates better-calibrated probability estimates. Values as reported in Table III of the manuscript."
+)
 
-    "Predicted Probability": [
-        0.10,
-        0.20,
-        0.30,
-        0.40,
-        0.50,
-        0.60,
-        0.70,
-        0.80,
-        0.90
+brier_comparison = pd.DataFrame({
+
+    "Model": [
+        "CatBoost",
+        "XGBoost",
+        "Random Forest",
+        "Logistic Regression",
     ],
 
-    "Observed Frequency": [
-        0.09,
-        0.19,
-        0.31,
-        0.39,
-        0.50,
-        0.61,
-        0.69,
-        0.82,
-        0.91
+    "Brier Score": [
+        0.1684,
+        0.1685,
+        0.1713,
+        0.1723,
     ]
 
 })
@@ -98,17 +92,15 @@ left, right = st.columns([1, 1])
 with left:
 
     st.dataframe(
-        calibration,
+        brier_comparison,
         use_container_width=True,
         hide_index=True
     )
 
 with right:
 
-    st.line_chart(
-        calibration.set_index(
-            "Predicted Probability"
-        )
+    st.bar_chart(
+        brier_comparison.set_index("Model")
     )
 
 st.divider()
@@ -208,7 +200,7 @@ st.success(
 """
 ### Key Findings
 
-- **Brier Score:** 0.1684
+- **Brier Score:** 0.1684 (lowest among all evaluated models)
 - **Calibration Quality:** Good
 - **Final Model:** CatBoost
 

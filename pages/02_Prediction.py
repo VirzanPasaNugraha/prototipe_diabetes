@@ -19,6 +19,68 @@ st.set_page_config(
 
 
 # ==========================
+# CACHED MODEL LOADING
+# ==========================
+
+@st.cache_resource(show_spinner="Loading model...")
+def get_predictor() -> Predictor:
+    """
+    Load the Predictor (and its underlying CatBoost pipeline)
+    once per session instead of on every form submission.
+    """
+    return Predictor()
+
+
+# ==========================
+# SCALE LABELS (BRFSS 2015 codebook)
+# ==========================
+
+GENHLTH_LABELS = {
+    1: "Excellent",
+    2: "Very Good",
+    3: "Good",
+    4: "Fair",
+    5: "Poor",
+}
+
+AGE_LABELS = {
+    1: "18-24",
+    2: "25-29",
+    3: "30-34",
+    4: "35-39",
+    5: "40-44",
+    6: "45-49",
+    7: "50-54",
+    8: "55-59",
+    9: "60-64",
+    10: "65-69",
+    11: "70-74",
+    12: "75-79",
+    13: "80+",
+}
+
+EDUCATION_LABELS = {
+    1: "Never attended school / Kindergarten only",
+    2: "Elementary (Grades 1-8)",
+    3: "Some High School (Grades 9-11)",
+    4: "High School Graduate / GED",
+    5: "Some College / Technical School",
+    6: "College Graduate",
+}
+
+INCOME_LABELS = {
+    1: "< $10,000",
+    2: "$10,000 - $14,999",
+    3: "$15,000 - $19,999",
+    4: "$20,000 - $24,999",
+    5: "$25,000 - $34,999",
+    6: "$35,000 - $49,999",
+    7: "$50,000 - $74,999",
+    8: "$75,000+",
+}
+
+
+# ==========================
 # TITLE
 # ==========================
 
@@ -68,7 +130,7 @@ with st.form("prediction_form"):
 
 
         CholCheck = st.selectbox(
-            "Cholesterol Check",
+            "Cholesterol Check (last 5 years)",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -84,7 +146,7 @@ with st.form("prediction_form"):
 
 
         Smoker = st.selectbox(
-            "Smoker",
+            "Smoker (100+ cigarettes lifetime)",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -103,7 +165,7 @@ with st.form("prediction_form"):
 
 
         HeartDiseaseorAttack = st.selectbox(
-            "Heart Disease",
+            "Heart Disease / Heart Attack",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -111,7 +173,7 @@ with st.form("prediction_form"):
 
 
         PhysActivity = st.selectbox(
-            "Physical Activity",
+            "Physical Activity (past 30 days)",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -119,7 +181,7 @@ with st.form("prediction_form"):
 
 
         Fruits = st.selectbox(
-            "Consume Fruits",
+            "Consume Fruits (1+ per day)",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -127,7 +189,7 @@ with st.form("prediction_form"):
 
 
         Veggies = st.selectbox(
-            "Consume Vegetables",
+            "Consume Vegetables (1+ per day)",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -143,7 +205,7 @@ with st.form("prediction_form"):
 
 
         AnyHealthcare = st.selectbox(
-            "Healthcare Access",
+            "Has Healthcare Coverage",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -155,23 +217,24 @@ with st.form("prediction_form"):
 
 
         NoDocbcCost = st.selectbox(
-            "Unable Medical Cost",
+            "Skipped Doctor Due to Cost",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
         )
 
 
-        GenHlth = st.slider(
+        GenHlth = st.selectbox(
             "General Health",
-            1,
-            5,
-            3
+            list(GENHLTH_LABELS.keys()),
+            index=2,
+            format_func=lambda x:
+            f"{x} - {GENHLTH_LABELS[x]}"
         )
 
 
         MentHlth = st.slider(
-            "Mental Health Days",
+            "Mental Health — Poor Days (past 30 days)",
             0,
             30,
             0
@@ -179,7 +242,7 @@ with st.form("prediction_form"):
 
 
         PhysHlth = st.slider(
-            "Physical Health Days",
+            "Physical Health — Poor Days (past 30 days)",
             0,
             30,
             0
@@ -187,7 +250,7 @@ with st.form("prediction_form"):
 
 
         DiffWalk = st.selectbox(
-            "Difficulty Walking",
+            "Difficulty Walking / Climbing Stairs",
             [0,1],
             format_func=lambda x:
             "Yes" if x else "No"
@@ -202,11 +265,12 @@ with st.form("prediction_form"):
         )
 
 
-        Age = st.slider(
+        Age = st.selectbox(
             "Age Category",
-            1,
-            13,
-            7
+            list(AGE_LABELS.keys()),
+            index=6,
+            format_func=lambda x:
+            f"{x} - {AGE_LABELS[x]}"
         )
 
 
@@ -216,21 +280,23 @@ with st.form("prediction_form"):
 
     with col4:
 
-        Education = st.slider(
+        Education = st.selectbox(
             "Education Level",
-            1,
-            6,
-            5
+            list(EDUCATION_LABELS.keys()),
+            index=4,
+            format_func=lambda x:
+            f"{x} - {EDUCATION_LABELS[x]}"
         )
 
 
     with col5:
 
-        Income = st.slider(
+        Income = st.selectbox(
             "Income Level",
-            1,
-            8,
-            5
+            list(INCOME_LABELS.keys()),
+            index=4,
+            format_func=lambda x:
+            f"{x} - {INCOME_LABELS[x]}"
         )
 
 
@@ -314,13 +380,13 @@ if submit:
 
     try:
 
-        predictor = Predictor()
+        predictor = get_predictor()
 
 
         result = predictor.predict_result(
             patient
         )
-        
+
 
 
         st.divider()
