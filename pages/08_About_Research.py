@@ -43,6 +43,31 @@ Performance, Explainability, Fairness, and Calibration
 st.divider()
 
 # ======================================================
+# PUBLICATION (newly added)
+# ======================================================
+
+st.subheader("📄 Published Research Paper")
+
+st.markdown(
+    """
+    This prototype is the official implementation of a research paper
+    published in **Journal of Applied Informatics and Computing (JAIC)**,
+    Politeknik Negeri Batam (Polibatam), e-ISSN: 2548-6861.
+
+    🔗 **Read the full paper:**
+    [Comprehensive Diabetes Risk Prediction Using BRFSS Data: Performance, Explainability, Fairness, and Calibration](https://www.researchgate.net/publication/408415092_Comprehensive_Diabetes_Risk_Prediction_Using_BRFSS_Data_Performance_Explainability_Fairness_and_Calibration)
+
+    🏛️ **Journal Homepage:** [http://jurnal.polibatam.ac.id/index.php/JAIC](http://jurnal.polibatam.ac.id/index.php/JAIC)
+    """
+)
+
+st.caption(
+    "Authors: Virzan Pasa Nugraha, Agung Febrian — Informatika, Universitas Sebelas April Sumedang"
+)
+
+st.divider()
+
+# ======================================================
 # OVERVIEW
 # ======================================================
 
@@ -380,23 +405,23 @@ st.subheader("Key Findings")
 
 st.success(
 """
-• CatBoost achieved the best overall performance.
+- CatBoost achieved the best overall performance.
 
-• SHAP identified General Health, BMI, Age,
+- SHAP identified General Health, BMI, Age,
 High Cholesterol, and High Blood Pressure as the
 most influential features.
 
-• Fairness evaluation showed disparities across age and
+- Fairness evaluation showed disparities across age and
 education groups, with older individuals detected more
 reliably than younger ones.
 
-• Calibration analysis demonstrated reliable
+- Calibration analysis demonstrated reliable
 probability estimates (lowest Brier Score among all models).
 
-• Ablation study confirms BMI and GenHlth as the most
+- Ablation study confirms BMI and GenHlth as the most
 critical features for discrimination and sensitivity.
 
-• Threshold optimization provides flexibility
+- Threshold optimization provides flexibility
 between balanced prediction and screening scenarios.
 """
 )
