@@ -50,7 +50,7 @@ with col2:
 
     st.write(
         """
-        **Virzan Pasa Nugraha**
+        **Virzan Pasa Nugraha and Agung Febrian**
 
         Informatics Student
 
