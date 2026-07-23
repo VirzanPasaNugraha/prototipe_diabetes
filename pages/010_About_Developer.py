@@ -51,6 +51,7 @@ with col2:
 
     st.write(
         """
+**SIDIAS Research Team**
 
 **Institution**
 
