@@ -50,15 +50,25 @@ with col2:
 
     st.write(
         """
-        **Virzan Pasa Nugraha and Agung Febrian**
+        **SIDIAS**
+
+        *Sistem Deteksi Dini Risiko Diabetes Berbasis Machine Learning
+        yang Explainable, Adil (Fair), dan Terkalibrasi untuk Mendukung
+        Skrining Kesehatan Masyarakat Indonesia*
 
         Informatics Student
 
         Universitas Sebelas April (UNSAP)
+        """
+    )
 
-        Faculty of Information Technology
+    st.markdown("**Team Members:**")
 
-        Program Studi Informatika
+    st.write(
+        """
+        - Virzan Pasa Nugraha
+        - Agung Febrian
+        - Fidi Supriadi
         """
     )
 
@@ -82,7 +92,7 @@ with project_col1:
 
     st.metric(
         "Project",
-        "Diabetes AI"
+        "SIDIAS"
     )
 
 
