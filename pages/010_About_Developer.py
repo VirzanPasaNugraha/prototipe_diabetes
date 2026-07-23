@@ -35,7 +35,7 @@ with col1:
 
     st.image(
         INSTITUTION_LOGO,
-        caption="Fakultas Teknologi Informasi — Universitas Sebelas April",
+        caption="Faculty of Information Technology — Sebelas April University",
         use_column_width=True
     )
 
@@ -55,7 +55,7 @@ with col2:
 
 **Institution**
 
-Universitas Sebelas April — Fakultas Teknologi Informasi
+Sebelas April University — Faculty of Information Technology
 """
     )
 
