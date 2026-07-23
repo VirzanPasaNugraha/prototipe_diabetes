@@ -241,7 +241,7 @@ with module2:
 - 📉 Calibration
 - 🎯 Threshold Analysis
 - 📖 About Research
-- 👨‍💻 About Developer
+- 👨‍💻 About Research Team
 """)
 
 st.divider()

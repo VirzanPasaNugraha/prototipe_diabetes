@@ -129,7 +129,9 @@ ABLATION_STUDY = get_figure(
 MISCLASSIFICATION_SUMMARY = get_figure(
     "misclassification_summary_plot.png"
 )
-
+INSTITUTION_LOGO = get_figure(
+    "fti.png"
+)
 # =====================================================
 # OPTIONAL
 # =====================================================
@@ -145,6 +147,7 @@ ALL_FIGURES = {
     "reliability_xgboost": RELIABILITY_XGBOOST,
     "shap_summary": SHAP_SUMMARY,
     "shap_bar": SHAP_BAR,
+    
     "feature_importance": FEATURE_IMPORTANCE,
     "threshold": THRESHOLD,
     "class_distribution": CLASS_DISTRIBUTION,
@@ -156,4 +159,5 @@ ALL_FIGURES = {
     "vif_analysis": VIF_ANALYSIS,
     "ablation_study": ABLATION_STUDY,
     "misclassification_summary": MISCLASSIFICATION_SUMMARY,
+     "institution_logo": INSTITUTION_LOGO,
 }
