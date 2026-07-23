@@ -53,10 +53,6 @@ with col2:
         """
 **SIDIAS Research Team**
 
-*An interdisciplinary research team dedicated to developing
-transparent, fair, explainable, and reliable machine learning
-solutions for early diabetes risk prediction.*
-
 **Institution**
 
 Universitas Sebelas April — Fakultas Teknologi Informasi
